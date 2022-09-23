@@ -1,12 +1,8 @@
 FROM nodered/node-red
-
-COPY package.json .
-RUN npm install --unsafe-perm --no-update-notifier --no-fund --only=production
-
-COPY settings.js /data/settings.js
-
+ 
+COPY settings.js /data/
 USER root
-# WORKDIR /usr/src/node-red
+RUN chown -R node-red:root /data
 RUN npm install node-red-node-smooth
-RUN npm install -g node-red-admin
+RUN npm install --no-fund --no-update-notifier --save node-red-admin
 USER node-red
